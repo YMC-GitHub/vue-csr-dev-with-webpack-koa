@@ -12,7 +12,7 @@ note: you can also start your project with [Vue CLI](https://cli.vuejs.org/)
 
 get detail [here](./note/dir-construtor.md)
 
-## some important deps for ssr develop
+## some important deps for csr develop
 
 - eslint (lint .js .vue file)
 - babel (handle es6+)
@@ -23,15 +23,6 @@ get detail [here](./note/dir-construtor.md)
 
 note: remember to take care of their version with each other.
 
-## some config
-
-01.what is the entry for ssr client? [config](./build/webpack.ssr-base.config.js#L24)
-
-02.what is the entry for ssr server? [config](./build/webpack.ssr-server.config.js#L10)
-
-06.use eslint to lint with project config [config](./build/config.js#L49-#L52)
-
-todos ...
 
 ## some command
 

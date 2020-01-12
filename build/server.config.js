@@ -1,12 +1,14 @@
-/**
- * 配置服务端口，以及代理
- */
-const constants = require('./constants')
-const common = 'test'
+const path = require('path')
+const resolve = file => path.resolve(__dirname, file)
 module.exports = {
-  appPort: 9009,
-  proxy: {
-    '/api/test': constants.loginTargets[common],
-    '/v3/assistant': 'http://restapi.amap.com/v3/',
-  },
+  //where the host is?
+  host: '0.0.0.0',
+  //which port is?
+  port: 8080,
+  //where the html file to serve?
+  www: resolve('../dist'),
+  //what is the name of html files
+  index: resolve('../dist/index.html'),
+  //where the static file to serve?
+  static: resolve('../public'),
 }

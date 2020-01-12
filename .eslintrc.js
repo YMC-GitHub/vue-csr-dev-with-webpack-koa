@@ -15,11 +15,11 @@ module.exports = {
   plugins: [
     'html'
   ],
-  // check if imports actually resolve
+  //let eslint use webpack's resolver to check if imports actually resolve
   'settings': {
     'import/resolver': {
       'webpack': {
-        'config': 'build/webpack.ssr-base.config.js'
+        'config': 'build/webpack.csr-bas.config.js'
       }
     }
   },
