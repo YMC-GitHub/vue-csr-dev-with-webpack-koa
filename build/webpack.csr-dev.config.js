@@ -47,8 +47,9 @@ webpackClientDevConfig.plugins.push(
   new webpack.NoEmitOnErrorsPlugin(),
   new FriendlyErrorsPlugin()
 )
-
+/*
 Object.keys(webpackClientDevConfig.entry).forEach((name) => {
-  webpackConfig.entry[name] = ['./build/csr-dev-client.js'].concat(webpackConfig.entry[name]);
+  webpackConfig.entry[name] = ['./build/dev-client.js'].concat(webpackConfig.entry[name]);
 });
+*/
 module.exports = webpackClientDevConfig

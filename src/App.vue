@@ -15,6 +15,7 @@
         <li class="menu__item">
           <router-link class="menu__link" to="/chat" active-class="menu__item--active">Chat</router-link>
         </li>
+
         <li class="menu__item">
           <router-link class="menu__link" to="/shop" active-class="menu__item--active">Shop</router-link>
         </li>
@@ -42,7 +43,6 @@ export default {
 
 /* Button*/
 @import "./components/Button/base.css";
-
 html {
   font-size: 62.5%;
 }

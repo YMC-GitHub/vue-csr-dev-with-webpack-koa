@@ -1,12 +1,15 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const utils = require('./utils')
-const base = require('./webpack.csr-bas.config')
 //const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 //const nodeExternals = require('webpack-node-externals')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const SWPrecachePlugin = require('sw-precache-webpack-plugin')
+
+const utils = require('./utils')
+const base = require('./webpack.csr-bas.config')
+const config = require('./config')
 
 const webpackClientProConfig = merge(base, {
   devtool: 'source-map',
@@ -15,12 +18,19 @@ const webpackClientProConfig = merge(base, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': JSON.stringify('client'),
     }),
+
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
+      filename: utils.assetsPath('css/[name].[contenthash].css'),
+      allChunks: true,
     }),
     // minify css after extract
-    new OptimizeCSSPlugin(),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
+    }),
+
     // minify JS
     new webpack.optimize.UglifyJsPlugin({
       workers: require('os').cpus().length,
@@ -77,7 +87,31 @@ webpackClientProConfig.plugins.push(
     }
   ]),
   // auto generate service worker
-  //...
+  new SWPrecachePlugin({
+    cacheId: 'maybeul',
+    filename: 'service-worker.js',
+    minify: true,
+    dontCacheBustUrlsMatching: /./,
+    staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/, /\.json$/],
+    /*runtimeCaching: [
+      {
+        urlPattern: '/',
+        handler: 'networkFirst'
+      },
+      {
+        urlPattern: /\/(top|new|show|ask|jobs)/,
+        handler: 'networkFirst'
+      },
+      {
+        urlPattern: '/item/:id',
+        handler: 'networkFirst'
+      },
+      {
+        urlPattern: '/user/:id',
+        handler: 'networkFirst'
+      }
+    ]*/
+  })
 )
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
@@ -99,3 +133,4 @@ if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackClientProConfig.plugins.push(new BundleAnalyzerPlugin())
 }
+module.exports = webpackClientProConfig
