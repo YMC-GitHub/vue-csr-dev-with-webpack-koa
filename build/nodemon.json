@@ -3,5 +3,5 @@
     "build"
   ],
   "ext": "js,mjs,json,vue",
-  "exec": "node app/csr-server"
+  "exec": "cross-env NODE_ENV=development node app/csr-server"
 }

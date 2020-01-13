@@ -10,12 +10,16 @@ const bluebird = require('bluebird')
 
 global.Promise = bluebird
 
-const configServer = require('../build/server.config')
+const config = require('../build/server.config')
 
 const rootPath = path.resolve(__dirname, './')
 const resolve = file => path.resolve(rootPath, file)
 
+if (process.env.NODE_ENV === undefined) {
+  process.env.NODE_ENV = 'production'
+}
 const isProd = process.env.NODE_ENV === 'production'
+
 // static serve
 const serve = (filepath, cache) => require('koa-static')(resolve(filepath), {
   // set browser cache max-age in milliseconds.
@@ -37,19 +41,20 @@ app.use(compression({
   threshold: 2048,
   flush: require('zlib').Z_SYNC_FLUSH
 }))
-app.use(favicon(`${configServer.static}/favicon.ico`, {
+app.use(favicon(isProd ? `${config.build.static}/favicon.ico` : `${config.dev.static}/favicon.ico`, {
   // set favicon cache max-age in milliseconds.
   maxAge: isProd ? 1 * 1000 * 60 * 60 * 60 * 24 : 1000
   // 1*1000*60*60*60*24
   // n*ms*s*m*h*d*
 }))
 // static serve for public dir
-app.use(serve(configServer.static, true))
+app.use(serve(isProd ? config.build.static : config.dev.static, true))
 // static serve for dist dir
-app.use(serve(configServer.www, true))
+app.use(serve(isProd ? config.build.www : config.dev.www, true))
+
 router.get(/^(?!\/api)(?:\/|$)/, (ctx, next) => {
   try {
-    ctx.body = fs.readFileSync(configServer.index, 'utf-8')
+    ctx.body = fs.readFileSync(isProd ? config.build.www : config.dev.www, 'utf-8')
     ctx.set('Content-Type', 'text/html')
     ctx.set('Server', 'Koa2 client side render')
   } catch (e) {
@@ -57,6 +62,7 @@ router.get(/^(?!\/api)(?:\/|$)/, (ctx, next) => {
   }
 })
 app.use(router.routes()).use(router.allowedMethods())
+
 app.use((ctx, next) => {
   ctx.type = 'html'
   ctx.body = '404 | Page Not Found'
