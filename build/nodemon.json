@@ -1,6 +1,8 @@
 {
   "watch": [
-    "build"
+    "build",
+    "app",
+    "src"
   ],
   "ext": "js,mjs,json,vue",
   "exec": "cross-env NODE_ENV=development node app/csr-server"
