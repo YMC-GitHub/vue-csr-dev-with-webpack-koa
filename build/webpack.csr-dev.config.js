@@ -10,6 +10,9 @@ const config = require('./config')
 const utils = require('./utils')
 const base = require('./webpack.csr-bas.config')
 
+if (process.env.NODE_ENV === undefined) {
+  process.env.NODE_ENV = 'production'
+}
 const isProd = process.env.NODE_ENV === 'production'
 
 const webpackClientDevConfig = merge(base, {
@@ -36,7 +39,7 @@ const webpackClientDevConfig = merge(base, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isProd
         ? '"production"'
-        : JSON.stringify(process.env.NODE_ENV || 'development'),
+        : JSON.stringify(process.env.NODE_ENV || 'production'),
       'process.env.VUE_ENV': JSON.stringify('client'),
     }),
     //new VueSSRClientPlugin()
