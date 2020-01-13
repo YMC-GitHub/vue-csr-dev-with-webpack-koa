@@ -57,10 +57,7 @@ app.use(serve(isProd ? config.build.static : config.dev.static, true))
 // static serve for dist dir
 app.use(serve(isProd ? config.build.www : config.dev.www, true))
 
-
-// handle 404 for vue spa case00
-/*
-router.get(/^(?!\/api)(?:\/|$)/, (ctx, next) => {
+router.get('/', (ctx, next) => {
   try {
     ctx.body = fs.readFileSync(isProd ? config.build.www : config.dev.www, 'utf-8')
     ctx.set('Content-Type', 'text/html')
@@ -70,30 +67,7 @@ router.get(/^(?!\/api)(?:\/|$)/, (ctx, next) => {
   }
 })
 app.use(router.routes()).use(router.allowedMethods())
-*/
 
-// handle 404 for vue spa case03
-/*
-app.use(async (ctx, next) => {
-  if ((/^(?!\/api)(?:\/|$)/).test(ctx.url)) {
-    ctx.body = fs.readFileSync(isProd ? config.build.www : config.dev.www, 'utf-8')
-    ctx.set('Content-Type', 'text/html')
-    ctx.set('Server', 'Koa2 client side render')
-    await next()
-  }
-})
-*/
-// handle 404 for vue spa case01
-// ok,but not good (with 302)
-/*
-app.use(async (ctx, next) => {
-  await next()
-  // eslint-disable-next-line radix
-  if (parseInt(ctx.status) === 404) {
-    ctx.response.redirect('/')
-  }
-})
-*/
 // handle 404 for case01
 app.use((ctx, next) => {
   ctx.type = 'html'
