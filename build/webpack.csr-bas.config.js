@@ -77,7 +77,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: resolve('src/csr-index.template.html'),
+      template: config.dev.index,
       inject: true,
       minify: {
         removeComments: true,        //去注释

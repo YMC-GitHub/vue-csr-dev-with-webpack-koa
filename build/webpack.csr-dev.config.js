@@ -1,12 +1,14 @@
 const path = require('path')
-const utils = require('./utils')
+
 const webpack = require('webpack')
-const config = require('./config')
 const merge = require('webpack-merge')
-const base = require('./webpack.csr-bas.config')
 //const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 //const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+
+const config = require('./config')
+const utils = require('./utils')
+const base = require('./webpack.csr-bas.config')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -47,9 +49,4 @@ webpackClientDevConfig.plugins.push(
   new webpack.NoEmitOnErrorsPlugin(),
   new FriendlyErrorsPlugin()
 )
-/*
-Object.keys(webpackClientDevConfig.entry).forEach((name) => {
-  webpackConfig.entry[name] = ['./build/dev-client.js'].concat(webpackConfig.entry[name]);
-});
-*/
 module.exports = webpackClientDevConfig

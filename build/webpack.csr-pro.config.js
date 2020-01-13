@@ -79,7 +79,7 @@ webpackClientProConfig.plugins.push(
     children: true,
     minChunks: 3
   }),
-  //copy custom static assets
+  //copy custom static asset
   new CopyWebpackPlugin([
     {
       from: config.dev.index,
