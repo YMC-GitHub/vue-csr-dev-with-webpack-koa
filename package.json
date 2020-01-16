@@ -35,7 +35,6 @@
     "koa-logger": "^3.0.1",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
-    "koa2-connect-history-api-fallback": "^0.1.2",
     "lru-cache": "^4.1.1",
     "vue": "^2.5.13",
     "vue-i18n": "^8.1.0",
