@@ -12,6 +12,12 @@ const base = require('./webpack.csr-bas.config')
 const config = require('./config')
 
 const webpackClientProConfig = merge(base, {
+  output: {
+    path: config.build.assetsRoot,
+    //use custom utils set output file name and chunk file name for webpack
+    filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+  },
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
@@ -89,7 +95,7 @@ webpackClientProConfig.plugins.push(
   // auto generate service worker
   new SWPrecachePlugin({
     cacheId: 'maybeul',
-    filename: 'service-worker.js',
+    filename: utils.assetsPath('js/service-worker.js'),
     minify: true,
     dontCacheBustUrlsMatching: /./,
     staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/, /\.json$/],
