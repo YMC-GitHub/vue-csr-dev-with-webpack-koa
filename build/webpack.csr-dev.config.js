@@ -6,7 +6,7 @@ const merge = require('webpack-merge')
 //const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-const config = require('./config')
+const config = require('../config')
 const utils = require('./utils')
 const base = require('./webpack.csr-bas.config')
 

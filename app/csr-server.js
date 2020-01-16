@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const app = require('./app-koa')
 
-const config = require('../build/server.config')
+const config = require('../config/server.config')
 
 if (process.env.NODE_ENV === undefined) {
   process.env.NODE_ENV = 'production'

@@ -10,7 +10,7 @@ const bluebird = require('bluebird')
 
 global.Promise = bluebird
 
-const config = require('../build/server.config')
+const config = require('../config/server.config')
 
 const rootPath = path.resolve(__dirname, './')
 const resolve = file => path.resolve(rootPath, file)

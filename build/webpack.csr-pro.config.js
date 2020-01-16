@@ -9,7 +9,7 @@ const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
 const utils = require('./utils')
 const base = require('./webpack.csr-bas.config')
-const config = require('./config')
+const config = require('../config')
 
 const webpackClientProConfig = merge(base, {
   output: {
