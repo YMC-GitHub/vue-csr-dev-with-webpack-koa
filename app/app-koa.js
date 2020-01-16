@@ -53,7 +53,7 @@ app.use(favicon(isProd ? `${config.build.static}/favicon.ico` : `${config.dev.st
 app.use(require('koa2-connect-history-api-fallback').historyApiFallback({ whiteList: ['/api'] }))
 
 // static serve for public dir
-app.use(serve(isProd ? config.build.static : config.dev.static, true))
+app.use(serve(isProd ? config.build.public : config.dev.public, true))
 // static serve for dist dir
 app.use(serve(isProd ? config.build.www : config.dev.www, true))
 
