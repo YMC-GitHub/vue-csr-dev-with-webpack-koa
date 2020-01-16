@@ -50,16 +50,17 @@ app.use(favicon(isProd ? `${config.build.static}/favicon.ico` : `${config.dev.st
 
 // handle 404 for vue spa case04
 // ok,but may be not the best
-app.use(require('koa2-connect-history-api-fallback').historyApiFallback({ whiteList: ['/api'] }))
+// app.use(require('koa2-connect-history-api-fallback').historyApiFallback({ whiteList: ['/api'] }))
 
 // static serve for public dir
 app.use(serve(isProd ? config.build.public : config.dev.public, true))
 // static serve for dist dir
 app.use(serve(isProd ? config.build.www : config.dev.www, true))
 
-router.get('/', (ctx, next) => {
+// handle all route to html index file for spa
+router.get(/^(?!\/api)(?:\/|$)/, (ctx, next) => {
   try {
-    ctx.body = fs.readFileSync(isProd ? config.build.www : config.dev.www, 'utf-8')
+    ctx.body = fs.readFileSync((isProd ? config.build.index : config.dev.index), 'utf-8')
     ctx.set('Content-Type', 'text/html')
     ctx.set('Server', 'Koa2 client side render')
   } catch (e) {
@@ -67,8 +68,8 @@ router.get('/', (ctx, next) => {
   }
 })
 app.use(router.routes()).use(router.allowedMethods())
-
-// handle 404 for case01
+// for other
+// handle 404 for /apixx or /api/xx
 app.use((ctx, next) => {
   ctx.type = 'html'
   ctx.body = '404 | Page Not Found'
