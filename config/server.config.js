@@ -1,4 +1,6 @@
 const path = require('path')
+const projectDirConstrutoConfig = require('./dir.construtor')
+
 const resolve = file => path.resolve(__dirname, file)
 module.exports = {
   build: {
@@ -11,7 +13,9 @@ module.exports = {
     //what is the name of html files
     index: resolve('../dist/index.html'),
     //where the static file to serve?
-    static: resolve('../public'),
+    public: projectDirConstrutoConfig.public,
+    //where the static file to copy by webpack?
+    static: projectDirConstrutoConfig.static,
   },
   dev: {
     //where the host is?
@@ -23,6 +27,8 @@ module.exports = {
     //what is the name of html files
     index: resolve('../src/csr-index.template.html'),
     //where the static file to serve?
-    static: resolve('../public'),
+    public: projectDirConstrutoConfig.public,
+    //where the static file to copy by webpack?
+    static: projectDirConstrutoConfig.static,
   }
 }

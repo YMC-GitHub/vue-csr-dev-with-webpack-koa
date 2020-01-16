@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 const serverConfig = require('./server.config')
-
+const projectDirConstrutoConfig = require('./dir.construtor')
 module.exports = {
   build: {
     env: {
@@ -10,8 +10,8 @@ module.exports = {
     port: serverConfig.build.port,
     index: serverConfig.build.index,
     assetsRoot: serverConfig.build.www,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '',
+    assetsSubDirectory: { from: projectDirConstrutoConfig.static, to: 'static' },
+    assetsPublicPath: '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -34,8 +34,8 @@ module.exports = {
     port: serverConfig.dev.port,
     index: serverConfig.dev.index,
     autoOpenBrowser: true,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/dist/',
+    assetsSubDirectory: { from: projectDirConstrutoConfig.static, to: 'static' },
+    assetsPublicPath: '/',
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

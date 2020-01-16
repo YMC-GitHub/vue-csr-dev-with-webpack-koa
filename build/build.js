@@ -19,7 +19,7 @@ const spinner = ora('building for production...')
 spinner.start()
 
 //remove the old build dir
-rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
+rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory.to), err => {
   //case:err
   if (err) throw err
   //case:ok

@@ -88,8 +88,8 @@ webpackClientProConfig.plugins.push(
   //copy custom static asset
   new CopyWebpackPlugin([
     {
-      from: config.dev.index,
-      to: config.build.index
+      from: config.build.assetsSubDirectory.from,
+      to: config.build.assetsSubDirectory.to,
     }
   ]),
   // auto generate service worker
